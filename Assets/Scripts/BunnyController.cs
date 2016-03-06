@@ -11,6 +11,10 @@ public class BunnyController : MonoBehaviour {
 	private Collider2D myCollider;
 	public Text scoreText;
 	private float startTime;
+	private int jumpsLeft = 2;
+	public AudioSource jumpSfx;
+	public AudioSource deathSfx;
+	public AudioSource eeSfx;
 
 	// Use this for initialization
 	void Start () {
@@ -27,8 +31,20 @@ public class BunnyController : MonoBehaviour {
 		if (bunnyHurtTime == -1) {
 
 			//se a tecla "espaço" for pressionada, o sprite pula
-			if (Input.GetButtonUp ("Jump")) {
-				myRigidBody.AddForce (transform.up * bunnyJumpForce);
+			if (Input.GetButtonUp ("Jump") && jumpsLeft > 0) {
+
+				if(myRigidBody.velocity.y < 0){
+					myRigidBody.velocity = Vector2.zero;
+				}
+
+				if(jumpsLeft == 1){
+					myRigidBody.AddForce (transform.up * bunnyJumpForce * 0.75f);
+				}
+				else{
+					myRigidBody.AddForce (transform.up * bunnyJumpForce);
+				}
+				jumpSfx.Play();
+				jumpsLeft --;
 			}
 			//myAnim.SetFloat ("vVelocity", myRigidBody.velocity.y);
 
@@ -56,11 +72,20 @@ public class BunnyController : MonoBehaviour {
 				moveLefter.enabled = false;
 			}
 
+			deathSfx.Play();
 			bunnyHurtTime = Time.time;
-			myAnim.SetBool("bunnyHurt", true);
+			myAnim.SetBool ("bunnyHurt", true);
 			myRigidBody.velocity = Vector2.zero;
-			myRigidBody.AddForce(transform.up * bunnyJumpForce);
+			myRigidBody.AddForce (transform.up * bunnyJumpForce);
 			myCollider.enabled = false;
+		} else if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Ground")) {
+			jumpsLeft = 2;
+		}
+
+		if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Itens")) {
+			Destroy (collision.gameObject);
+			eeSfx.Play ();
+			//scoreText.text += (scoreText + 100).ToString("0.0");
 		}
 	}
 }
