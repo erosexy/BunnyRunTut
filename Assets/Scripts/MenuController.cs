@@ -20,9 +20,14 @@ public class MenuController : MonoBehaviour {
 	
 	}
 
-    public void StartGame()
+    public void StartGameAsBunny()
     {
         Application.LoadLevel("GameBunny");
     }
-    
+
+    public void StartGameAsBunnie()
+    {
+        Application.LoadLevel("GameBunnie");
+    }
+
 }

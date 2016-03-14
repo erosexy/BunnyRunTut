@@ -10,12 +10,14 @@ public class BunnyController : MonoBehaviour {
 	private float bunnyHurtTime = -1;
 	private Collider2D myCollider;
 	public Text scoreText;
+    public Text eggsText;
 	private float startTime;
+    private int eggsCollected;
 	private int jumpsLeft = 2;
 	public AudioSource jumpSfx;
 	public AudioSource deathSfx;
 	public AudioSource eeSfx;
-
+    
 	// Use this for initialization
 	void Start () {
 		myRigidBody = GetComponent<Rigidbody2D> ();
@@ -88,9 +90,11 @@ public class BunnyController : MonoBehaviour {
 		}
 
 		if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Itens")) {
-			Destroy (collision.gameObject);
+            Destroy (collision.gameObject);
 			eeSfx.Play ();
-			//scoreText.text += (scoreText + 100).ToString("0.0");
-		}
+            eggsCollected++;
+            eggsText.text = eggsCollected.ToString();
+            //scoreText.text += (scoreText + 100).ToString("0.0");
+        }
 	}
 }
