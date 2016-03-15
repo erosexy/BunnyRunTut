@@ -85,7 +85,8 @@ public class BunnyController : MonoBehaviour {
 			myRigidBody.velocity = Vector2.zero;
 			myRigidBody.AddForce (transform.up * bunnyJumpForce);
 			myCollider.enabled = false;
-		} else if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Ground")) {
+            
+        } else if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Ground")) {
 			jumpsLeft = 2;
 		}
 
