@@ -11,6 +11,8 @@ public class EggPrefabSpawner : MonoBehaviour {
     public float curveLenghtInSeconds = 30f;
     private float startTime;
     public float jitter = 0.25f;
+    private float y;
+    private Vector3 pos;
         
     // Use this for initialization
     void Start()
@@ -23,7 +25,11 @@ public class EggPrefabSpawner : MonoBehaviour {
     {
         if (Time.time > nextSpawn)
         {
-            Instantiate(prefabToSpawn[Random.Range(0,3)], transform.position, Quaternion.identity);
+            y = Random.Range(-1, 4);
+            pos = new Vector3(transform.position.x, y, transform.position.z);
+            transform.position = pos;
+            Instantiate(prefabToSpawn[Random.Range(0, 3)], pos, Quaternion.identity);
+            //Instantiate(prefabToSpawn[Random.Range(0,3)], transform.position, Quaternion.identity); //usa a posição do gameObject como parâmetro em transform.position
             //nextSpawn = Time.time + spawnRate + Random.Range(0, randomDelay);
 
             float curvePos = (Time.time - startTime) / curveLenghtInSeconds;
