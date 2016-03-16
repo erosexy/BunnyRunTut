@@ -11,6 +11,7 @@ public class BunnyController : MonoBehaviour {
 	private Collider2D myCollider;
 	public Text scoreText;
     public Text eggsText;
+	public Text livesText;
 	private float startTime;
     private int eggsCollected;
 	private int jumpsLeft = 2;
@@ -82,6 +83,7 @@ public class BunnyController : MonoBehaviour {
 			deathSfx.Play();
 			bunnyHurtTime = Time.time;
 			myAnim.SetBool ("bunnyHurt", true);
+			livesText.text = (int.Parse (livesText.text) - 1).ToString ();
 			myRigidBody.velocity = Vector2.zero;
 			myRigidBody.AddForce (transform.up * bunnyJumpForce);
 			myCollider.enabled = false;
