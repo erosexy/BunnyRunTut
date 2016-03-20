@@ -19,7 +19,13 @@ public class BunnieController : MonoBehaviour
     public AudioSource jumpSfx;
     public AudioSource deathSfx;
     public AudioSource eeSfx;
-    
+
+    //variáveis que contém objetos
+    public GameObject lifes3;
+    public GameObject lifes2;
+    public GameObject lifes1;
+    private GameObject bgm;
+
 
     // Use this for initialization
     void Start()
@@ -29,11 +35,30 @@ public class BunnieController : MonoBehaviour
         myCollider = GetComponent<Collider2D>();
 
         startTime = Time.time;
+
+        //encontra o objeto que tem a música de fundo
+        bgm = GameObject.Find("BackgroundMusic");
+        //se a música estiver parada/pausada
+        if (!bgm.GetComponent<AudioSource>().isPlaying)
+        {
+            //a música toca de novo
+            bgm.GetComponent<AudioSource>().Play();
+        }
+
+        //encontra os objetos
+        lifes3 = GameObject.Find("lifes3");
+        lifes2 = GameObject.Find("lifes2");
+        lifes1 = GameObject.Find("lifes1");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            bgm.GetComponent<AudioSource>().Stop();
+            Application.LoadLevel("Title");
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

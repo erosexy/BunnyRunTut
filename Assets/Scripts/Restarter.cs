@@ -16,7 +16,6 @@ public class Restarter : MonoBehaviour {
 			Application.LoadLevel("Title");
 			Destroy(this.gameObject);
 		}
-
 	}
 
 	IEnumerator Wait()
@@ -25,9 +24,5 @@ public class Restarter : MonoBehaviour {
 
 		Application.LoadLevel("Title");
 		Destroy(this.gameObject);
-
-
 	}
-
-
 }

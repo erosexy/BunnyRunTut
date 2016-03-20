@@ -11,32 +11,52 @@ public class BunnyController : MonoBehaviour {
 	private Collider2D myCollider;
 	public Text scoreText;
     public Text eggsText;
-	public Text livesText;
 	private float startTime;
     private int eggsCollected;
 	private int jumpsLeft = 2;
 	public AudioSource jumpSfx;
 	public AudioSource deathSfx;
 	public AudioSource eeSfx;
-    
-	// Use this for initialization
-	void Start () {
+
+    //variáveis que contém objetos
+    public GameObject lifes3;
+    public GameObject lifes2;
+    public GameObject lifes1;
+    private GameObject bgm;
+
+    // Use this for initialization
+    void Start () {
 		myRigidBody = GetComponent<Rigidbody2D> ();
 		myAnim = GetComponent<Animator> ();
 		myCollider = GetComponent<Collider2D> ();
 
 		startTime = Time.time;
-	}
+
+        //encontra o objeto que tem a música de fundo
+        bgm = GameObject.Find("BackgroundMusic");
+        //se a música estiver parada/pausada
+        if (!bgm.GetComponent<AudioSource>().isPlaying)
+        {
+            //a música toca de novo
+            bgm.GetComponent<AudioSource>().Play();
+        }
+
+        //encontra os objetos
+        lifes3 = GameObject.Find("lifes3");
+        lifes2 = GameObject.Find("lifes2");
+        lifes1 = GameObject.Find("lifes1");
+    }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
+            bgm.GetComponent<AudioSource>().Stop();
             Application.LoadLevel("Title");
         }
 
-		if (bunnyHurtTime == -1) {
+        if (bunnyHurtTime == -1) {
 
 			//se a tecla "espaço" for pressionada, o sprite pula
 			if (Input.GetButtonUp ("Jump") && jumpsLeft > 0) {
@@ -72,7 +92,7 @@ public class BunnyController : MonoBehaviour {
 
 		if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Enemy")) {
 
-			foreach (PrefabSpawner spawner in FindObjectsOfType<PrefabSpawner>()) {
+            foreach (PrefabSpawner spawner in FindObjectsOfType<PrefabSpawner>()) {
 				spawner.enabled = false;
 			}
 
@@ -80,10 +100,38 @@ public class BunnyController : MonoBehaviour {
 				moveLefter.enabled = false;
 			}
 
-			deathSfx.Play();
+            //se o objeto tiver sido achado
+            if (lifes3)
+            {
+                //destrói
+                // Destroy(lifes3);
+                lifes3.transform.localScale = new Vector3(0, 0, 0);
+                
+                //GameObject.Find("lifes3").transform.localScale = new Vector3(0, 0, 0);
+                DontDestroyOnLoad(lifes3);
+
+            }
+            else if (lifes2)
+            {
+                //destrói
+                //Destroy(lifes2);
+                
+                DontDestroyOnLoad(lifes2);
+
+            }
+            else if (lifes1)
+            {
+                //destrói
+                //Destroy(lifes1);
+                DontDestroyOnLoad(lifes1);
+
+                Application.LoadLevel("GameOver");
+            }
+
+
+            deathSfx.Play();
 			bunnyHurtTime = Time.time;
 			myAnim.SetBool ("bunnyHurt", true);
-			livesText.text = (int.Parse (livesText.text) - 1).ToString ();
 			myRigidBody.velocity = Vector2.zero;
 			myRigidBody.AddForce (transform.up * bunnyJumpForce);
 			myCollider.enabled = false;

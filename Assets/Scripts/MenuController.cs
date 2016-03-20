@@ -3,9 +3,11 @@ using System.Collections;
 
 public class MenuController : MonoBehaviour {
 
+    public AudioSource titleMusic;
+
 	// Use this for initialization
 	void Start () {
-	
+        
 	}
 	
 	// Update is called once per frame
@@ -22,11 +24,13 @@ public class MenuController : MonoBehaviour {
 
     public void StartGameAsBunny()
     {
+        titleMusic.Pause();
         Application.LoadLevel("GameBunny");
     }
 
     public void StartGameAsBunnie()
     {
+        titleMusic.Stop();
         Application.LoadLevel("GameBunnie");
     }
 
