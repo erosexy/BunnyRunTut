@@ -20,9 +20,9 @@ public class BunnyController : MonoBehaviour {
 	public AudioSource eeSfx;
 
     //variáveis que contém objetos
-    public GameObject lifes3;
-    public GameObject lifes2;
-    public GameObject lifes1;
+    private GameObject lifes3;
+    private GameObject lifes2;
+    private GameObject lifes1;
     private GameObject bgm;
 
     // Use this for initialization
@@ -46,6 +46,13 @@ public class BunnyController : MonoBehaviour {
         lifes3 = GameObject.Find("lifes3");
         lifes2 = GameObject.Find("lifes2");
         lifes1 = GameObject.Find("lifes1");
+        if(!lifes3.GetComponent<Renderer>().enabled && !lifes2.GetComponent<Renderer>().enabled && !lifes1.GetComponent<Renderer>().enabled)
+        {
+            lifes1.GetComponent<Renderer>().enabled = true;
+            lifes2.GetComponent<Renderer>().enabled = true;
+            lifes3.GetComponent<Renderer>().enabled = true;
+        }
+
     }
 	
 	// Update is called once per frame
@@ -107,24 +114,25 @@ public class BunnyController : MonoBehaviour {
 			}
             
             //se o objeto tiver sido achado
-            if (lifes3)
+            if (lifes3.GetComponent<Renderer>().enabled)
             {
-                lifes3.GetComponent<Renderer>().enabled = true;
+                lifes3.GetComponent<Renderer>().enabled = false;
                 //lifes3.transform.localScale = new Vector3(0, 0, 0);
                 Debug.Log("Lifes3 desativado");
             }
-            else if (lifes2)
+            else if (lifes2.GetComponent<Renderer>().enabled)
             {
-                lifes2.GetComponent<Renderer>().enabled = true;
+                lifes2.GetComponent<Renderer>().enabled = false;
                 //lifes2.transform.localScale = new Vector3(0, 0, 0);
                 Debug.Log("Lifes2 desativado");
             }
-            else if (lifes1)
+            else if (lifes1.GetComponent<Renderer>().enabled)
             {
-                lifes1.GetComponent<Renderer>().enabled = true;
+                lifes1.GetComponent<Renderer>().enabled = false;
                 //lifes1.transform.localScale = new Vector3(0, 0, 0);
                 //lifes1.SetActive(false); //desativa o objeto, recomendado a partir do Unity 5.x
                 //Application.LoadLevel("GameOver");
+                bgm.GetComponent<AudioSource>().Stop();
                 SceneManager.LoadScene("GameOver");
             }
 
