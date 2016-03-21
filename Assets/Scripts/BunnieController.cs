@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BunnieController : MonoBehaviour
 {
@@ -57,12 +58,14 @@ public class BunnieController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             bgm.GetComponent<AudioSource>().Stop();
-            Application.LoadLevel("Title");
+            //Application.LoadLevel("Title");
+            SceneManager.LoadScene("Title");
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.LoadLevel("Title");
+            SceneManager.LoadScene("Title");
+            //Application.LoadLevel("Title");
         }
 
         if (BunnieHurtTime == -1)
@@ -98,7 +101,8 @@ public class BunnieController : MonoBehaviour
             if (Time.time > BunnieHurtTime + 2)
             {
                 //LoadLevel serve para carregar outras cenas do jogo
-                Application.LoadLevel(Application.loadedLevel);
+                //Application.LoadLevel(Application.loadedLevel);
+                SceneManager.LoadScene("GameBunnie");
             }
         }
     }

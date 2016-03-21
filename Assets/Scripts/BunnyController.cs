@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; //necessário para usar SceneManager, por exemplo
 
 public class BunnyController : MonoBehaviour {
 
@@ -53,7 +54,11 @@ public class BunnyController : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             bgm.GetComponent<AudioSource>().Stop();
-            Application.LoadLevel("Title");
+            lifes3.transform.localScale = new Vector3(1, 1, 1);
+            lifes2.transform.localScale = new Vector3(1, 1, 1);
+            lifes1.transform.localScale = new Vector3(1, 1, 1);
+            SceneManager.LoadScene("Title");
+            //Application.LoadLevel("Title"); não recomendado para Unity 5.x em diante
         }
 
         if (bunnyHurtTime == -1) {
@@ -83,7 +88,8 @@ public class BunnyController : MonoBehaviour {
 			//apos um tempo, reinicia a cena
 			if(Time.time > bunnyHurtTime + 2){
 				//LoadLevel serve para carregar outras cenas do jogo
-				Application.LoadLevel (Application.loadedLevel);
+				//Application.LoadLevel (Application.loadedLevel);
+                SceneManager.LoadScene("GameBunny");
 			}
 		}
 	}
@@ -99,35 +105,28 @@ public class BunnyController : MonoBehaviour {
 			foreach (MoveLeft moveLefter in FindObjectsOfType<MoveLeft>()) {
 				moveLefter.enabled = false;
 			}
-
+            
             //se o objeto tiver sido achado
             if (lifes3)
             {
-                //destrói
-                // Destroy(lifes3);
-                lifes3.transform.localScale = new Vector3(0, 0, 0);
-                
-                //GameObject.Find("lifes3").transform.localScale = new Vector3(0, 0, 0);
-                DontDestroyOnLoad(lifes3);
-
+                lifes3.GetComponent<Renderer>().enabled = true;
+                //lifes3.transform.localScale = new Vector3(0, 0, 0);
+                Debug.Log("Lifes3 desativado");
             }
             else if (lifes2)
             {
-                //destrói
-                //Destroy(lifes2);
-                
-                DontDestroyOnLoad(lifes2);
-
+                lifes2.GetComponent<Renderer>().enabled = true;
+                //lifes2.transform.localScale = new Vector3(0, 0, 0);
+                Debug.Log("Lifes2 desativado");
             }
             else if (lifes1)
             {
-                //destrói
-                //Destroy(lifes1);
-                DontDestroyOnLoad(lifes1);
-
-                Application.LoadLevel("GameOver");
+                lifes1.GetComponent<Renderer>().enabled = true;
+                //lifes1.transform.localScale = new Vector3(0, 0, 0);
+                //lifes1.SetActive(false); //desativa o objeto, recomendado a partir do Unity 5.x
+                //Application.LoadLevel("GameOver");
+                SceneManager.LoadScene("GameOver");
             }
-
 
             deathSfx.Play();
 			bunnyHurtTime = Time.time;
@@ -148,4 +147,20 @@ public class BunnyController : MonoBehaviour {
             //scoreText.text += (scoreText + 100).ToString("0.0");
         }
 	}
+
+    ///<summary>
+    ///método chamado sempre que a tela é carregada
+    ///<param name="index">é o número da tela que foi carregada</param>
+    ///Você pode alterar os valores indo em File > Build Settings
+    ///Lá você configura a ordem que as telas do seu jogo serão exibidas (de 0 a n)
+    ///Número é o index
+    /// </summary> 
+
+    void OnLevelWasLoaded(int index)
+    {
+        if(index == 0)
+        {
+            Debug.Log("Woohoo");
+        }
+    }
 }

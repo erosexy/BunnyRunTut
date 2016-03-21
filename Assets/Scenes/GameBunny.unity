@@ -246,7 +246,8 @@ Prefab:
       propertyPath: m_Name
       value: lifes2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11429434, guid: 2a97d8369d2d566408415a5603191da6, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 2a97d8369d2d566408415a5603191da6, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &148263156 stripped
@@ -1754,7 +1755,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 495878, guid: 2a97d8369d2d566408415a5603191da6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -7.15
+      value: -7.12
       objectReference: {fileID: 0}
     - target: {fileID: 495878, guid: 2a97d8369d2d566408415a5603191da6, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2248,7 +2249,8 @@ Prefab:
       propertyPath: m_Name
       value: lifes1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11429434, guid: 2a97d8369d2d566408415a5603191da6, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 2a97d8369d2d566408415a5603191da6, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1464248917

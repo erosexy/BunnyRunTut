@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour {
 
@@ -25,13 +26,15 @@ public class MenuController : MonoBehaviour {
     public void StartGameAsBunny()
     {
         titleMusic.Pause();
-        Application.LoadLevel("GameBunny");
+        SceneManager.LoadScene("GameBunny");
+        //Application.LoadLevel("GameBunny");
     }
 
     public void StartGameAsBunnie()
     {
         titleMusic.Stop();
-        Application.LoadLevel("GameBunnie");
+        SceneManager.LoadScene("GameBunnie");
+        //Application.LoadLevel("GameBunnie");
     }
 
 }

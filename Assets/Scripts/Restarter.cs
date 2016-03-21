@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Restarter : MonoBehaviour {
 
@@ -13,8 +14,9 @@ public class Restarter : MonoBehaviour {
 		StartCoroutine("Wait");
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			Application.LoadLevel("Title");
-			Destroy(this.gameObject);
+            //Application.LoadLevel("Title");
+            SceneManager.LoadScene("Title");
+            Destroy(this.gameObject);
 		}
 	}
 
@@ -22,7 +24,8 @@ public class Restarter : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(6);
 
-		Application.LoadLevel("Title");
+		//Application.LoadLevel("Title");
+        SceneManager.LoadScene("Title");
 		Destroy(this.gameObject);
 	}
 }
