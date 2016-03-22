@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class Restarter : MonoBehaviour {
 
+    public AudioSource gameOverMusic;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -19,6 +21,12 @@ public class Restarter : MonoBehaviour {
             Destroy(this.gameObject);
 		}
 	}
+
+    public void GoToTitleScreen()
+    {
+        gameOverMusic.Stop();
+        SceneManager.LoadScene("Title");
+    }
 
 	IEnumerator StartAgain()
 	{

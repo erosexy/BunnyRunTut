@@ -36,5 +36,4 @@ public class MenuController : MonoBehaviour {
         SceneManager.LoadScene("GameBunnie");
         //Application.LoadLevel("GameBunnie");
     }
-
 }

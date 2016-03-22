@@ -62,6 +62,9 @@ public class BunnieController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             bgm.GetComponent<AudioSource>().Stop();
+            lifes3.GetComponent<Renderer>().enabled = false;
+            lifes2.GetComponent<Renderer>().enabled = false;
+            lifes1.GetComponent<Renderer>().enabled = false;
             //Application.LoadLevel("Title");
             SceneManager.LoadScene("Title");
         }

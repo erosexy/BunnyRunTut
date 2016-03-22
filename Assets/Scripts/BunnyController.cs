@@ -61,9 +61,9 @@ public class BunnyController : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             bgm.GetComponent<AudioSource>().Stop();
-            lifes3.transform.localScale = new Vector3(1, 1, 1);
-            lifes2.transform.localScale = new Vector3(1, 1, 1);
-            lifes1.transform.localScale = new Vector3(1, 1, 1);
+            lifes3.GetComponent<Renderer>().enabled = false;
+            lifes2.GetComponent<Renderer>().enabled = false;
+            lifes1.GetComponent<Renderer>().enabled = false;
             SceneManager.LoadScene("Title");
             //Application.LoadLevel("Title"); não recomendado para Unity 5.x em diante
         }
