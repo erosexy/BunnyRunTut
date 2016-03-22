@@ -23,6 +23,12 @@ public class MenuController : MonoBehaviour {
 	
 	}
 
+    public void StartMusicTest()
+    {
+        titleMusic.Stop();
+        SceneManager.LoadScene("SoundTest");
+    }
+
     public void StartGameAsBunny()
     {
         titleMusic.Pause();
