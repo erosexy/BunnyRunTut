@@ -133,7 +133,8 @@ public class BunnyController : MonoBehaviour {
                 //lifes1.SetActive(false); //desativa o objeto, recomendado a partir do Unity 5.x
                 //Application.LoadLevel("GameOver");
                 bgm.GetComponent<AudioSource>().Stop();
-                SceneManager.LoadScene("GameOver");
+                StartCoroutine("GameOver");
+                //SceneManager.LoadScene("GameOver");
             }
 
             deathSfx.Play();
@@ -155,6 +156,14 @@ public class BunnyController : MonoBehaviour {
             //scoreText.text += (scoreText + 100).ToString("0.0");
         }
 	}
+
+    IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(1.8f);
+
+        //Application.LoadLevel("Title");
+        SceneManager.LoadScene("GameOver");
+    }
 
     ///<summary>
     ///método chamado sempre que a tela é carregada

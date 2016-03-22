@@ -11,7 +11,7 @@ public class Restarter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		StartCoroutine("Wait");
+		StartCoroutine("StartAgain");
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
             //Application.LoadLevel("Title");
@@ -20,9 +20,9 @@ public class Restarter : MonoBehaviour {
 		}
 	}
 
-	IEnumerator Wait()
+	IEnumerator StartAgain()
 	{
-		yield return new WaitForSeconds(6);
+		yield return new WaitForSeconds(30);
 
 		//Application.LoadLevel("Title");
         SceneManager.LoadScene("Title");
