@@ -25,7 +25,7 @@ public class EggPrefabSpawner : MonoBehaviour {
     {
         if (Time.time > nextSpawn)
         {
-            y = Random.Range(-1, 4);
+            y = Random.Range(-1, 3.5f);
             pos = new Vector3(transform.position.x, y, transform.position.z);
             transform.position = pos;
             Instantiate(prefabToSpawn[Random.Range(0, 3)], pos, Quaternion.identity);

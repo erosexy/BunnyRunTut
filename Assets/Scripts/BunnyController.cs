@@ -12,6 +12,10 @@ public class BunnyController : MonoBehaviour {
 	private Collider2D myCollider;
 	public Text scoreText;
     public Text eggsText;
+    //public Text topScoreText;
+    //public Text topEasterEggsText;
+    private string topCounter;
+    private string presentCounter;
 	private float startTime;
     private int eggsCollected;
 	private int jumpsLeft = 2;
@@ -23,6 +27,8 @@ public class BunnyController : MonoBehaviour {
     private GameObject lifes3;
     private GameObject lifes2;
     private GameObject lifes1;
+    private GameObject topScoreText;
+    private GameObject topEasterEggsText;
     private GameObject bgm;
 
     // Use this for initialization
@@ -41,7 +47,8 @@ public class BunnyController : MonoBehaviour {
             //a música toca de novo
             bgm.GetComponent<AudioSource>().Play();
         }
-
+        topEasterEggsText = GameObject.Find("lblEasterEggsTop");
+        topScoreText = GameObject.Find("lblScoreTop");
         //encontra os objetos
         lifes3 = GameObject.Find("lifes3");
         lifes2 = GameObject.Find("lifes2");
@@ -91,6 +98,7 @@ public class BunnyController : MonoBehaviour {
 			//usando o valor absoluto faz o sprite de pulo estar presente em todo o salto
 			myAnim.SetFloat ("vVelocity", Mathf.Abs (myRigidBody.velocity.y));
 			scoreText.text = (Time.time - startTime).ToString("0.0");
+            //totalScoreText.text = scoreText.ToString();
 		} else {
 			//apos um tempo, reinicia a cena
 			if(Time.time > bunnyHurtTime + 2){
@@ -137,6 +145,32 @@ public class BunnyController : MonoBehaviour {
                 //SceneManager.LoadScene("GameOver");
             }
 
+            topCounter = topEasterEggsText.GetComponent<Text>().text;
+            presentCounter = eggsText.text;
+
+            if(topEasterEggsText.GetComponent<Text>().text == "")
+            {
+                topEasterEggsText.GetComponent<Text>().text = eggsCollected.ToString();
+            }
+            else if (int.Parse(topCounter) < int.Parse(presentCounter))
+            {
+                topCounter = presentCounter;
+                topEasterEggsText.GetComponent<Text>().text = topCounter.ToString();
+            }
+
+            topCounter = topScoreText.GetComponent<Text>().text;
+            presentCounter = scoreText.text;
+
+            if (topScoreText.GetComponent<Text>().text == "")
+            {
+                topScoreText.GetComponent<Text>().text = scoreText.text.ToString();
+            }
+            else if (float.Parse(topCounter) < float.Parse(presentCounter))
+            {
+                topCounter = presentCounter;
+                topScoreText.GetComponent<Text>().text = topCounter.ToString();
+            }
+
             deathSfx.Play();
 			bunnyHurtTime = Time.time;
 			myAnim.SetBool ("bunnyHurt", true);
@@ -153,6 +187,7 @@ public class BunnyController : MonoBehaviour {
 			eeSfx.Play ();
             eggsCollected++;
             eggsText.text = eggsCollected.ToString();
+            //totalEasterEggsText.text = eggsCollected.ToString();
             //scoreText.text += (scoreText + 100).ToString("0.0");
         }
 	}

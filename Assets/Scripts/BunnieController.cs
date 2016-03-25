@@ -12,6 +12,8 @@ public class BunnieController : MonoBehaviour
     private Collider2D myCollider;
     public Text scoreText;
     public Text eggsText;
+    private string topCounter;
+    private string presentCounter;
     private float startTime;
     private int eggsCollected;
     private int jumpsLeft = 2;
@@ -23,6 +25,8 @@ public class BunnieController : MonoBehaviour
     private GameObject lifes3;
     private GameObject lifes2;
     private GameObject lifes1;
+    private GameObject topScoreText;
+    private GameObject topEasterEggsText;
     private GameObject bgm;
 
 
@@ -45,6 +49,8 @@ public class BunnieController : MonoBehaviour
         }
 
         //encontra os objetos
+        topEasterEggsText = GameObject.Find("lblEasterEggsTop");
+        topScoreText = GameObject.Find("lblScoreTop");
         lifes3 = GameObject.Find("lifes3");
         lifes2 = GameObject.Find("lifes2");
         lifes1 = GameObject.Find("lifes1");
@@ -154,6 +160,32 @@ public class BunnieController : MonoBehaviour
                 //SceneManager.LoadScene("GameOver");
             }
 
+
+            topCounter = topEasterEggsText.GetComponent<Text>().text;
+            presentCounter = eggsText.text;
+
+            if (topEasterEggsText.GetComponent<Text>().text == "")
+            {
+                topEasterEggsText.GetComponent<Text>().text = eggsCollected.ToString();
+            }
+            else if (int.Parse(topCounter) < int.Parse(presentCounter))
+            {
+                topCounter = presentCounter;
+                topEasterEggsText.GetComponent<Text>().text = topCounter.ToString();
+            }
+
+            topCounter = topScoreText.GetComponent<Text>().text;
+            presentCounter = scoreText.text;
+
+            if (topScoreText.GetComponent<Text>().text == "")
+            {
+                topScoreText.GetComponent<Text>().text = scoreText.text.ToString();
+            }
+            else if (float.Parse(topCounter) < float.Parse(presentCounter))
+            {
+                topCounter = presentCounter;
+                topScoreText.GetComponent<Text>().text = topCounter.ToString();
+            }
             deathSfx.Play();
             BunnieHurtTime = Time.time;
             myAnim.SetBool("bunnieHurt", true);
