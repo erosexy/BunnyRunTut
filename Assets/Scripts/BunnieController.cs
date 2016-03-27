@@ -51,15 +51,15 @@ public class BunnieController : MonoBehaviour
         //encontra os objetos
         topEasterEggsText = GameObject.Find("lblEasterEggsTop");
         topScoreText = GameObject.Find("lblScoreTop");
-        lifes3 = GameObject.Find("lifes3");
-        lifes2 = GameObject.Find("lifes2");
-        lifes1 = GameObject.Find("lifes1");
-        if (!lifes3.GetComponent<Renderer>().enabled && !lifes2.GetComponent<Renderer>().enabled && !lifes1.GetComponent<Renderer>().enabled)
-        {
-            lifes1.GetComponent<Renderer>().enabled = true;
-            lifes2.GetComponent<Renderer>().enabled = true;
-            lifes3.GetComponent<Renderer>().enabled = true;
-        }
+        //lifes3 = GameObject.Find("lifes3");
+        //lifes2 = GameObject.Find("lifes2");
+        //lifes1 = GameObject.Find("lifes1");
+        //if (!lifes3.GetComponent<Renderer>().enabled && !lifes2.GetComponent<Renderer>().enabled && !lifes1.GetComponent<Renderer>().enabled)
+        //{
+        //    lifes1.GetComponent<Renderer>().enabled = true;
+        //    lifes2.GetComponent<Renderer>().enabled = true;
+        //    lifes3.GetComponent<Renderer>().enabled = true;
+        //}
     }
 
     // Update is called once per frame
@@ -68,24 +68,18 @@ public class BunnieController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             bgm.GetComponent<AudioSource>().Stop();
-            lifes3.GetComponent<Renderer>().enabled = false;
-            lifes2.GetComponent<Renderer>().enabled = false;
-            lifes1.GetComponent<Renderer>().enabled = false;
+            //lifes3.GetComponent<Renderer>().enabled = false;
+            //lifes2.GetComponent<Renderer>().enabled = false;
+            //lifes1.GetComponent<Renderer>().enabled = false;
             //Application.LoadLevel("Title");
             SceneManager.LoadScene("Title");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("Title");
-            //Application.LoadLevel("Title");
         }
 
         if (BunnieHurtTime == -1)
         {
 
             //se a tecla "espaço" for pressionada, o sprite pula
-            if (Input.GetButtonUp("Jump") && jumpsLeft > 0)
+            if (Input.GetButtonUp("Jump") && jumpsLeft > 0 || Input.GetMouseButtonDown(0) && jumpsLeft > 0)
             {
 
                 if (myRigidBody.velocity.y < 0)
@@ -131,34 +125,39 @@ public class BunnieController : MonoBehaviour
                 spawner.enabled = false;
             }
 
+            foreach (EggPrefabSpawner spawner in FindObjectsOfType<EggPrefabSpawner>())
+            {
+                spawner.enabled = false;
+            }
+
             foreach (MoveLeft moveLefter in FindObjectsOfType<MoveLeft>())
             {
                 moveLefter.enabled = false;
             }
 
-            //se o objeto tiver sido achado
-            if (lifes3.GetComponent<Renderer>().enabled)
-            {
-                lifes3.GetComponent<Renderer>().enabled = false;
-                //lifes3.transform.localScale = new Vector3(0, 0, 0);
-                Debug.Log("Lifes3 desativado");
-            }
-            else if (lifes2.GetComponent<Renderer>().enabled)
-            {
-                lifes2.GetComponent<Renderer>().enabled = false;
-                //lifes2.transform.localScale = new Vector3(0, 0, 0);
-                Debug.Log("Lifes2 desativado");
-            }
-            else if (lifes1.GetComponent<Renderer>().enabled)
-            {
-                lifes1.GetComponent<Renderer>().enabled = false;
-                //lifes1.transform.localScale = new Vector3(0, 0, 0);
-                //lifes1.SetActive(false); //desativa o objeto, recomendado a partir do Unity 5.x
-                //Application.LoadLevel("GameOver");
-                bgm.GetComponent<AudioSource>().Stop();
-                StartCoroutine("GameOver");
-                //SceneManager.LoadScene("GameOver");
-            }
+            ////se o objeto tiver sido achado
+            //if (lifes3.GetComponent<Renderer>().enabled)
+            //{
+            //    lifes3.GetComponent<Renderer>().enabled = false;
+            //    //lifes3.transform.localScale = new Vector3(0, 0, 0);
+            //    Debug.Log("Lifes3 desativado");
+            //}
+            //else if (lifes2.GetComponent<Renderer>().enabled)
+            //{
+            //    lifes2.GetComponent<Renderer>().enabled = false;
+            //    //lifes2.transform.localScale = new Vector3(0, 0, 0);
+            //    Debug.Log("Lifes2 desativado");
+            //}
+            //else if (lifes1.GetComponent<Renderer>().enabled)
+            //{
+            //    lifes1.GetComponent<Renderer>().enabled = false;
+            //    //lifes1.transform.localScale = new Vector3(0, 0, 0);
+            //    //lifes1.SetActive(false); //desativa o objeto, recomendado a partir do Unity 5.x
+            //    //Application.LoadLevel("GameOver");
+            //    bgm.GetComponent<AudioSource>().Stop();
+            //    StartCoroutine("GameOver");
+            //    //SceneManager.LoadScene("GameOver");
+            //}
 
 
             topCounter = topEasterEggsText.GetComponent<Text>().text;

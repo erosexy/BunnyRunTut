@@ -77,10 +77,10 @@ public class BunnyController : MonoBehaviour {
 
         if (bunnyHurtTime == -1) {
 
-			//se a tecla "espaço" for pressionada, o sprite pula
-			if (Input.GetButtonUp ("Jump") && jumpsLeft > 0) {
-
-				if(myRigidBody.velocity.y < 0){
+            //se a tecla "espaço" for pressionada, o sprite pula
+            if (Input.GetButtonUp("Jump") && jumpsLeft > 0 || Input.GetMouseButtonDown(0) && jumpsLeft > 0)
+            { 
+                if (myRigidBody.velocity.y < 0){
 					myRigidBody.velocity = Vector2.zero;
 				}
 
@@ -117,7 +117,12 @@ public class BunnyController : MonoBehaviour {
 				spawner.enabled = false;
 			}
 
-			foreach (MoveLeft moveLefter in FindObjectsOfType<MoveLeft>()) {
+            foreach (EggPrefabSpawner spawner in FindObjectsOfType<EggPrefabSpawner>())
+            {
+                spawner.enabled = false;
+            }
+
+            foreach (MoveLeft moveLefter in FindObjectsOfType<MoveLeft>()) {
 				moveLefter.enabled = false;
 			}
             
