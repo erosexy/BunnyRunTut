@@ -158,7 +158,7 @@ PlayerSettings:
   iOSDeviceRequirements: []
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
-  androidSplashScreen: {fileID: 2800000, guid: 3aff615ae4e06314aa03168b199c2070, type: 3}
+  androidSplashScreen: {fileID: 2800000, guid: ca1777a6909decd4d93c567a8ff24d92, type: 3}
   AndroidKeystoreName: C:/Users/Shian/Documents/Unity/BunnyRunTut.old/user.keystore
   AndroidKeyaliasName: orkut
   AndroidTVCompatibility: 1
@@ -174,7 +174,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 3d5a4acb78fef55439c95be4d66c07c6, type: 3}
+      m_Icon: {fileID: 2800000, guid: ca1777a6909decd4d93c567a8ff24d92, type: 3}
       m_Width: 128
       m_Height: 128
   m_BuildTargetBatching: []

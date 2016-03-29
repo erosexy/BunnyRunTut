@@ -51,6 +51,10 @@ public class BunnieController : MonoBehaviour
         //encontra os objetos
         topEasterEggsText = GameObject.Find("lblEasterEggsTop");
         topScoreText = GameObject.Find("lblScoreTop");
+
+        topEasterEggsText.GetComponent<Text>().text = GetEggsScore();
+        topScoreText.GetComponent<Text>().text = GetScore();
+
         //lifes3 = GameObject.Find("lifes3");
         //lifes2 = GameObject.Find("lifes2");
         //lifes1 = GameObject.Find("lifes1");
@@ -173,6 +177,8 @@ public class BunnieController : MonoBehaviour
                 topEasterEggsText.GetComponent<Text>().text = topCounter.ToString();
             }
 
+            SaveEggsScore(topEasterEggsText.GetComponent<Text>().text);
+
             topCounter = topScoreText.GetComponent<Text>().text;
             presentCounter = scoreText.text;
 
@@ -185,6 +191,9 @@ public class BunnieController : MonoBehaviour
                 topCounter = presentCounter;
                 topScoreText.GetComponent<Text>().text = topCounter.ToString();
             }
+
+            SaveScore(topScoreText.GetComponent<Text>().text);
+
             deathSfx.Play();
             BunnieHurtTime = Time.time;
             myAnim.SetBool("bunnieHurt", true);
@@ -213,5 +222,25 @@ public class BunnieController : MonoBehaviour
 
         //Application.LoadLevel("Title");
         SceneManager.LoadScene("GameOver");
+    }
+
+    void SaveEggsScore(string eggsScore)
+    {
+        PlayerPrefs.SetString("Eggs Score", topEasterEggsText.GetComponent<Text>().text);
+    }
+
+    string GetEggsScore()
+    {
+        return PlayerPrefs.GetString("Eggs Score");
+    }
+
+    void SaveScore(string Score)
+    {
+        PlayerPrefs.SetString("Score", topEasterEggsText.GetComponent<Text>().text);
+    }
+
+    string GetScore()
+    {
+        return PlayerPrefs.GetString("Score");
     }
 }

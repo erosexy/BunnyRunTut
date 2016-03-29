@@ -59,7 +59,8 @@ public class BunnyController : MonoBehaviour {
             lifes2.GetComponent<Renderer>().enabled = true;
             lifes3.GetComponent<Renderer>().enabled = true;
         }
-
+        topEasterEggsText.GetComponent<Text>().text = GetEggsScore();
+        topScoreText.GetComponent<Text>().text = GetScore();
     }
 	
 	// Update is called once per frame
@@ -162,6 +163,7 @@ public class BunnyController : MonoBehaviour {
                 topCounter = presentCounter;
                 topEasterEggsText.GetComponent<Text>().text = topCounter.ToString();
             }
+            SaveEggsScore(topEasterEggsText.GetComponent<Text>().text);
 
             topCounter = topScoreText.GetComponent<Text>().text;
             presentCounter = scoreText.text;
@@ -175,6 +177,8 @@ public class BunnyController : MonoBehaviour {
                 topCounter = presentCounter;
                 topScoreText.GetComponent<Text>().text = topCounter.ToString();
             }
+            SaveScore(topScoreText.GetComponent<Text>().text);
+
 
             deathSfx.Play();
 			bunnyHurtTime = Time.time;
@@ -220,4 +224,25 @@ public class BunnyController : MonoBehaviour {
             Debug.Log("Woohoo");
         }
     }
+
+    void SaveEggsScore(string eggsScore)
+    {
+        PlayerPrefs.SetString("Eggs Score", topEasterEggsText.GetComponent<Text>().text);
+    }
+
+    string GetEggsScore()
+    {
+        return PlayerPrefs.GetString("Eggs Score");
+    }
+
+    void SaveScore(string Score)
+    {
+        PlayerPrefs.SetString("Score", topEasterEggsText.GetComponent<Text>().text);
+    }
+
+    string GetScore()
+    {
+        return PlayerPrefs.GetString("Score");
+    }
+
 }

@@ -27,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.07660007, y: -2.91400003, z: 0}
+  m_LocalPosition: {x: 8.0766, y: -2.914, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -39,12 +39,13 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172404}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -.429389, y: -.291660547}
+  m_Offset: {x: -0.429389, y: -0.29166055}
   serializedVersion: 2
-  m_Size: {x: .311222434, y: 1.01667881}
+  m_Size: {x: 0.31122243, y: 1.0166788}
 --- !u!61 &6158618
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -52,12 +53,13 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172404}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -.0324058533, y: 0}
+  m_Offset: {x: -0.032405853, y: 0}
   serializedVersion: 2
-  m_Size: {x: .505662024, y: 1.60000002}
+  m_Size: {x: 0.505662, y: 1.6}
 --- !u!61 &6192366
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -65,12 +67,13 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172404}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: .392930031, y: -.162033558}
+  m_Offset: {x: 0.39293003, y: -0.16203356}
   serializedVersion: 2
-  m_Size: {x: .384134889, y: 1.27593279}
+  m_Size: {x: 0.3841349, y: 1.2759328}
 --- !u!114 &11440362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -82,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e95b84d9d74cad4884b418edfca50bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  speed: 5
 --- !u!212 &21245886
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -101,14 +104,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3af60c440b0855946a7dd8b76b5135f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
