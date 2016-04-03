@@ -31,7 +31,7 @@ public class MenuController : MonoBehaviour {
 
     public void StartGameAsBunny()
     {
-        titleMusic.Pause();
+        titleMusic.Stop();
         SceneManager.LoadScene("GameBunny");
         //Application.LoadLevel("GameBunny");
     }

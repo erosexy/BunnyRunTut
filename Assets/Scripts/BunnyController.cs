@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement; //necessário para usar SceneManager, por exemplo
+using System;
 
 public class BunnyController : MonoBehaviour {
 
@@ -12,23 +13,24 @@ public class BunnyController : MonoBehaviour {
 	private Collider2D myCollider;
 	public Text scoreText;
     public Text eggsText;
-    //public Text topScoreText;
-    //public Text topEasterEggsText;
-    private string topCounter;
-    private string presentCounter;
+    public GameObject bubble;
+    private string aux;
 	private float startTime;
     private int eggsCollected;
+    private float scoreAux;
 	private int jumpsLeft = 2;
+    private bool invincible = false;
 	public AudioSource jumpSfx;
 	public AudioSource deathSfx;
 	public AudioSource eeSfx;
+    private bool destroy = false;
 
     //variáveis que contém objetos
     private GameObject lifes3;
     private GameObject lifes2;
     private GameObject lifes1;
-    private GameObject topScoreText;
-    private GameObject topEasterEggsText;
+    private GameObject tempScoreText;
+    private GameObject tempEasterEggsText;
     private GameObject bgm;
 
     // Use this for initialization
@@ -47,8 +49,8 @@ public class BunnyController : MonoBehaviour {
             //a música toca de novo
             bgm.GetComponent<AudioSource>().Play();
         }
-        topEasterEggsText = GameObject.Find("lblEasterEggsTop");
-        topScoreText = GameObject.Find("lblScoreTop");
+        tempScoreText = GameObject.Find("lblScoreTemp");
+        tempEasterEggsText = GameObject.Find("lblEasterEggsTemp");
         //encontra os objetos
         lifes3 = GameObject.Find("lifes3");
         lifes2 = GameObject.Find("lifes2");
@@ -59,8 +61,20 @@ public class BunnyController : MonoBehaviour {
             lifes2.GetComponent<Renderer>().enabled = true;
             lifes3.GetComponent<Renderer>().enabled = true;
         }
-        topEasterEggsText.GetComponent<Text>().text = GetEggsScore();
-        topScoreText.GetComponent<Text>().text = GetScore();
+        tempEasterEggsText.GetComponent<Text>().text = "0";
+        tempScoreText.GetComponent<Text>().text = "0.0";
+
+        //tempEasterEggsText.GetComponent<Text>().text = GetEggsScore();
+        //tempScoreText.GetComponent<Text>().text = GetScore();
+        if (tempEasterEggsText.GetComponent<Text>().text == "")
+        {
+            tempEasterEggsText.GetComponent<Text>().text = "0";
+        }
+        if(tempScoreText.GetComponent<Text>().text == "")
+        {
+            tempScoreText.GetComponent<Text>().text = "0.0";
+        }
+        bubble.GetComponent<Renderer>().enabled = false;
     }
 	
 	// Update is called once per frame
@@ -73,6 +87,7 @@ public class BunnyController : MonoBehaviour {
             lifes2.GetComponent<Renderer>().enabled = false;
             lifes1.GetComponent<Renderer>().enabled = false;
             SceneManager.LoadScene("Title");
+
             //Application.LoadLevel("Title"); não recomendado para Unity 5.x em diante
         }
 
@@ -100,7 +115,7 @@ public class BunnyController : MonoBehaviour {
 			myAnim.SetFloat ("vVelocity", Mathf.Abs (myRigidBody.velocity.y));
 			scoreText.text = (Time.time - startTime).ToString("0.0");
             //totalScoreText.text = scoreText.ToString();
-		} else {
+        } else {
 			//apos um tempo, reinicia a cena
 			if(Time.time > bunnyHurtTime + 2){
 				//LoadLevel serve para carregar outras cenas do jogo
@@ -112,33 +127,40 @@ public class BunnyController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision){
 
-		if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Enemy")) {
+        if(collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") && invincible)
+        {
+            Destroy(collision.gameObject);
+        }
 
-            foreach (PrefabSpawner spawner in FindObjectsOfType<PrefabSpawner>()) {
-				spawner.enabled = false;
-			}
-
-            foreach (EggPrefabSpawner spawner in FindObjectsOfType<EggPrefabSpawner>())
-            {
-                spawner.enabled = false;
-            }
-
-            foreach (MoveLeft moveLefter in FindObjectsOfType<MoveLeft>()) {
-				moveLefter.enabled = false;
-			}
-            
+		if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Enemy") && !invincible) {
             //se o objeto tiver sido achado
             if (lifes3.GetComponent<Renderer>().enabled)
             {
                 lifes3.GetComponent<Renderer>().enabled = false;
                 //lifes3.transform.localScale = new Vector3(0, 0, 0);
                 Debug.Log("Lifes3 desativado");
+
+                destroy = true;
+
+
+                deathSfx.Play();
+                myRigidBody.velocity = Vector2.zero;
+                myRigidBody.AddForce(transform.up * bunnyJumpForce);
+                invincible = true;
+                bubble.GetComponent<Renderer>().enabled = true;
+                StartCoroutine("InvencibiltyTime");
             }
             else if (lifes2.GetComponent<Renderer>().enabled)
             {
                 lifes2.GetComponent<Renderer>().enabled = false;
                 //lifes2.transform.localScale = new Vector3(0, 0, 0);
                 Debug.Log("Lifes2 desativado");
+                deathSfx.Play();
+                myRigidBody.velocity = Vector2.zero;
+                myRigidBody.AddForce(transform.up * bunnyJumpForce);
+                invincible = true;
+                bubble.GetComponent<Renderer>().enabled = true;
+                StartCoroutine("InvencibiltyTime");
             }
             else if (lifes1.GetComponent<Renderer>().enabled)
             {
@@ -146,47 +168,35 @@ public class BunnyController : MonoBehaviour {
                 //lifes1.transform.localScale = new Vector3(0, 0, 0);
                 //lifes1.SetActive(false); //desativa o objeto, recomendado a partir do Unity 5.x
                 //Application.LoadLevel("GameOver");
+
+                foreach (PrefabSpawner spawner in FindObjectsOfType<PrefabSpawner>())
+                {
+                    spawner.enabled = false;
+
+                }
+                foreach (EggPrefabSpawner spawner in FindObjectsOfType<EggPrefabSpawner>())
+                {
+                    spawner.enabled = false;
+                }
+
+                foreach (MoveLeft moveLefter in FindObjectsOfType<MoveLeft>())
+                {
+                    moveLefter.enabled = false;
+                }
+
+                ScoreTempCalculation();
+                
+                bunnyHurtTime = Time.time;
+                myAnim.SetBool("bunnyHurt", true);
+                deathSfx.Play();
+                myRigidBody.velocity = Vector2.zero;
+                myRigidBody.AddForce(transform.up * bunnyJumpForce);
+                myCollider.enabled = false;
                 bgm.GetComponent<AudioSource>().Stop();
+
                 StartCoroutine("GameOver");
                 //SceneManager.LoadScene("GameOver");
             }
-
-            topCounter = topEasterEggsText.GetComponent<Text>().text;
-            presentCounter = eggsText.text;
-
-            if(topEasterEggsText.GetComponent<Text>().text == "")
-            {
-                topEasterEggsText.GetComponent<Text>().text = eggsCollected.ToString();
-            }
-            else if (int.Parse(topCounter) < int.Parse(presentCounter))
-            {
-                topCounter = presentCounter;
-                topEasterEggsText.GetComponent<Text>().text = topCounter.ToString();
-            }
-            SaveEggsScore(topEasterEggsText.GetComponent<Text>().text);
-
-            topCounter = topScoreText.GetComponent<Text>().text;
-            presentCounter = scoreText.text;
-
-            if (topScoreText.GetComponent<Text>().text == "")
-            {
-                topScoreText.GetComponent<Text>().text = scoreText.text.ToString();
-            }
-            else if (float.Parse(topCounter) < float.Parse(presentCounter))
-            {
-                topCounter = presentCounter;
-                topScoreText.GetComponent<Text>().text = topCounter.ToString();
-            }
-            SaveScore(topScoreText.GetComponent<Text>().text);
-
-
-            deathSfx.Play();
-			bunnyHurtTime = Time.time;
-			myAnim.SetBool ("bunnyHurt", true);
-			myRigidBody.velocity = Vector2.zero;
-			myRigidBody.AddForce (transform.up * bunnyJumpForce);
-			myCollider.enabled = false;
-            
         } else if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Ground")) {
 			jumpsLeft = 2;
 		}
@@ -196,10 +206,61 @@ public class BunnyController : MonoBehaviour {
 			eeSfx.Play ();
             eggsCollected++;
             eggsText.text = eggsCollected.ToString();
-            //totalEasterEggsText.text = eggsCollected.ToString();
-            //scoreText.text += (scoreText + 100).ToString("0.0");
         }
 	}
+
+    private void ScoreTempCalculation()
+    {
+        if (eggsCollected > 0)
+        {
+            if (tempEasterEggsText.GetComponent<Text>().text == "0")
+            {
+                tempEasterEggsText.GetComponent<Text>().text = eggsCollected.ToString();
+            }
+            else
+            {
+                aux = tempEasterEggsText.GetComponent<Text>().text;
+                eggsCollected = int.Parse(aux);
+                aux = eggsText.text;
+                eggsCollected += int.Parse(aux);
+                tempEasterEggsText.GetComponent<Text>().text = eggsCollected.ToString();
+            }
+            SaveEggsScore(tempEasterEggsText.GetComponent<Text>().text);
+        }
+
+
+        if (float.Parse(scoreText.text.ToString()) > 0.0)
+        {
+            if (tempScoreText.GetComponent<Text>().text == "0.0")
+            {
+                tempScoreText.GetComponent<Text>().text = scoreText.text.ToString();
+            }
+            else
+            {
+                aux = tempScoreText.GetComponent<Text>().text.ToString();
+                scoreAux = float.Parse(aux); 
+                aux = scoreText.text.ToString();
+                scoreAux += float.Parse(aux);
+                tempScoreText.GetComponent<Text>().text = scoreAux.ToString();
+            }
+            SaveScore(tempScoreText.GetComponent<Text>().text);
+        }
+    }
+
+    IEnumerator StopDestruction()
+    {
+        yield return new WaitForSeconds(2);
+        destroy = false;
+        Debug.Log("Not destroy");
+    }
+
+    IEnumerator InvencibiltyTime()
+    {
+        yield return new WaitForSeconds(5);
+        Debug.Log("Not invincible!");
+        bubble.GetComponent<Renderer>().enabled = false;
+        invincible = false;
+    }
 
     IEnumerator GameOver()
     {
@@ -227,22 +288,22 @@ public class BunnyController : MonoBehaviour {
 
     void SaveEggsScore(string eggsScore)
     {
-        PlayerPrefs.SetString("Eggs Score", topEasterEggsText.GetComponent<Text>().text);
+        PlayerPrefs.SetString("Life Mode - Eggs Score", tempEasterEggsText.GetComponent<Text>().text);
     }
 
     string GetEggsScore()
     {
-        return PlayerPrefs.GetString("Eggs Score");
+        return PlayerPrefs.GetString("Life Mode - Eggs Score");
     }
 
     void SaveScore(string Score)
     {
-        PlayerPrefs.SetString("Score", topEasterEggsText.GetComponent<Text>().text);
+        PlayerPrefs.SetString("Life Mode - Score", tempScoreText.GetComponent<Text>().text);
     }
 
     string GetScore()
     {
-        return PlayerPrefs.GetString("Score");
+        return PlayerPrefs.GetString("Life Mode - Score");
     }
 
 }

@@ -9,9 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
   - enabled: 1
     path: Assets/Scenes/SoundTest.unity
-  - enabled: 1
-    path: Assets/Scenes/GameBunny.unity
+  - enabled: 0
+    path: Assets/GameBunny.unity
   - enabled: 1
     path: Assets/Scenes/GameBunnie.unity
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
+  - enabled: 1
+    path: Assets/Scenes/GameBunny.unity
