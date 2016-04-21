@@ -76,9 +76,11 @@ public class BunnieController : MonoBehaviour
                 if (jumpsLeft == 1)
                 {
                     myRigidBody.AddForce(transform.up * BunnieJumpForce * 0.75f);
+                    Debug.Log("Second Jump");
                 }
-                else if(myRigidBody.velocity.y == 0) {
+                else{
                     myRigidBody.AddForce(transform.up * BunnieJumpForce);
+                    Debug.Log("First Jump");
                 }
                 jumpSfx.Play();
                 jumpsLeft--;
@@ -130,11 +132,7 @@ public class BunnieController : MonoBehaviour
             myRigidBody.AddForce(transform.up * BunnieJumpForce);
             myCollider.enabled = false;
         }
-        else if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            jumpsLeft = 2;
-        }
-
+        
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Itens"))
         {
             Destroy(collision.gameObject);
@@ -142,6 +140,15 @@ public class BunnieController : MonoBehaviour
             eggsCollected++;
             eggsText.text = eggsCollected.ToString();
             //scoreText.text += (scoreText + 100).ToString("0.0");
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            jumpsLeft = 2;
+            Debug.Log("Jumps recovered");
         }
     }
 
