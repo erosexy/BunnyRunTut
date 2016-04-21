@@ -95,25 +95,27 @@ public class BunnyController : MonoBehaviour {
 
             //se a tecla "espaço" for pressionada, o sprite pula
             if (Input.GetButtonUp("Jump") && jumpsLeft > 0 || Input.GetMouseButtonDown(0) && jumpsLeft > 0)
-            { 
-                if (myRigidBody.velocity.y < 0){
-					myRigidBody.velocity = Vector2.zero;
-				}
+            {
+                if (myRigidBody.velocity.y < 0)
+                {
+                    myRigidBody.velocity = Vector2.zero;
+                }
 
-				if(jumpsLeft == 1){
-					myRigidBody.AddForce (transform.up * bunnyJumpForce * 0.75f);
-				}
-				else{
-					myRigidBody.AddForce (transform.up * bunnyJumpForce);
-				}
-				jumpSfx.Play();
-				jumpsLeft --;
-			}
-			//myAnim.SetFloat ("vVelocity", myRigidBody.velocity.y);
+                if (jumpsLeft == 1)
+                {
+                    myRigidBody.AddForce(transform.up * bunnyJumpForce * 0.75f);
+                }
+                else if(myRigidBody.velocity.y == 0) {
+                    myRigidBody.AddForce(transform.up * bunnyJumpForce);
+                }
+                jumpSfx.Play();
+                jumpsLeft--;
+            }
+            //myAnim.SetFloat ("vVelocity", myRigidBody.velocity.y);
 
-			//usando o valor absoluto faz o sprite de pulo estar presente em todo o salto
-			myAnim.SetFloat ("vVelocity", Mathf.Abs (myRigidBody.velocity.y));
-			scoreText.text = (Time.time - startTime).ToString("0.0");
+            //usando o valor absoluto faz o sprite de pulo estar presente em todo o salto
+            myAnim.SetFloat("vVelocity", Mathf.Abs(myRigidBody.velocity.y));
+            scoreText.text = (Time.time - startTime).ToString("0.0");
             //totalScoreText.text = scoreText.ToString();
         } else {
 			//apos um tempo, reinicia a cena

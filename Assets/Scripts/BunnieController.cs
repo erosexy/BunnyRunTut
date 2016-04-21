@@ -77,7 +77,7 @@ public class BunnieController : MonoBehaviour
                 {
                     myRigidBody.AddForce(transform.up * BunnieJumpForce * 0.75f);
                 }
-                else {
+                else if(myRigidBody.velocity.y == 0) {
                     myRigidBody.AddForce(transform.up * BunnieJumpForce);
                 }
                 jumpSfx.Play();
