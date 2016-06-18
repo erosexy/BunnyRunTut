@@ -98,7 +98,8 @@ public class BunnieController : MonoBehaviour
                 //LoadLevel serve para carregar outras cenas do jogo
                 //Application.LoadLevel(Application.loadedLevel);
                 bgm.GetComponent<AudioSource>().Stop();
-                SceneManager.LoadScene("GameBunnie");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                // SceneManager.LoadScene("GameBunnie");
             }
         }
     }
@@ -108,7 +109,7 @@ public class BunnieController : MonoBehaviour
 
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-
+            GameObject.Find("Bunnie").transform.position = new Vector2(-3, transform.position.y);
             foreach (PrefabSpawner spawner in FindObjectsOfType<PrefabSpawner>())
             {
                 spawner.enabled = false;
@@ -135,6 +136,7 @@ public class BunnieController : MonoBehaviour
         
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Itens"))
         {
+            GameObject.Find("Bunnie").transform.position = new Vector2(-3, transform.position.y);
             Destroy(collision.gameObject);
             eeSfx.Play();
             eggsCollected++;

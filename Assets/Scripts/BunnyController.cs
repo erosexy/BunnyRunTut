@@ -131,13 +131,15 @@ public class BunnyController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision){
 
-        if(collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") && invincible)
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") && invincible)
         {
             Destroy(collision.gameObject);
+            GameObject.Find("Bunny").transform.position = new Vector2(-3, transform.position.y);
         }
 
 		if (collision.collider.gameObject.layer == LayerMask.NameToLayer ("Enemy") && !invincible) {
             //se o objeto tiver sido achado
+            GameObject.Find("Bunny").transform.position = new Vector2(-3, transform.position.y);
             if (lifes3.GetComponent<Renderer>().enabled)
             {
                 lifes3.GetComponent<Renderer>().enabled = false;
@@ -145,7 +147,6 @@ public class BunnyController : MonoBehaviour {
                 Debug.Log("Lifes3 desativado");
 
                 destroy = true;
-
 
                 deathSfx.Play();
                 myRigidBody.velocity = Vector2.zero;
@@ -207,6 +208,7 @@ public class BunnyController : MonoBehaviour {
 			eeSfx.Play ();
             eggsCollected++;
             eggsText.text = eggsCollected.ToString();
+            GameObject.Find("Bunny").transform.position = new Vector2(-3, transform.position.y);
         }
 	}
 
@@ -217,6 +219,7 @@ public class BunnyController : MonoBehaviour {
             jumpsLeft = 2;
             Debug.Log("Jumps recovered");
         }
+        
     }
 
     private void ScoreTempCalculation()
