@@ -23,7 +23,7 @@ public class BunnyController : MonoBehaviour {
 	public AudioSource jumpSfx;
 	public AudioSource deathSfx;
 	public AudioSource eeSfx;
-    private bool destroy = false;
+    //private bool destroy;
 
     //variáveis que contém objetos
     private GameObject lifes3;
@@ -32,6 +32,7 @@ public class BunnyController : MonoBehaviour {
     private GameObject tempScoreText;
     private GameObject tempEasterEggsText;
     private GameObject bgm;
+    private GameObject bunny;
 
     // Use this for initialization
     void Start () {
@@ -39,7 +40,7 @@ public class BunnyController : MonoBehaviour {
 		myAnim = GetComponent<Animator> ();
 		myCollider = GetComponent<Collider2D> ();
 
-		startTime = Time.time;
+        startTime = Time.time;
 
         //encontra o objeto que tem a música de fundo
         bgm = GameObject.Find("BackgroundMusic");
@@ -79,8 +80,7 @@ public class BunnyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             bgm.GetComponent<AudioSource>().Stop();
             lifes3.GetComponent<Renderer>().enabled = false;
@@ -146,7 +146,7 @@ public class BunnyController : MonoBehaviour {
                 //lifes3.transform.localScale = new Vector3(0, 0, 0);
                 Debug.Log("Lifes3 desativado");
 
-                destroy = true;
+                //destroy = true;
 
                 deathSfx.Play();
                 myRigidBody.velocity = Vector2.zero;
@@ -260,10 +260,12 @@ public class BunnyController : MonoBehaviour {
         }
     }
 
+    
+
     IEnumerator StopDestruction()
     {
         yield return new WaitForSeconds(2);
-        destroy = false;
+        //destroy = false;
         Debug.Log("Not destroy");
     }
 

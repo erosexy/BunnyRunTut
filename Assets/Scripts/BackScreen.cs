@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class BackScreen : MonoBehaviour {
 
-    private GameObject pauseBtn, bgMusic, backBtn, lifes1, lifes2, lifes3, pauseText;
+    private GameObject pauseBtn, bgMusic, backBtn, lifes1, lifes2, lifes3, pauseText, gameOverMusic;
 
 	public void Back()
     {
@@ -40,5 +40,12 @@ public class BackScreen : MonoBehaviour {
             SceneManager.LoadScene("Title");
         }
         
+    }
+
+    public void SoundTestBack()
+    {
+        gameOverMusic = GameObject.Find("GameOverMusic");
+        gameOverMusic.GetComponent<AudioSource>().Stop();
+        SceneManager.LoadScene("Title");
     }
 }
