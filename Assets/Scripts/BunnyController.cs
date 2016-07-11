@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement; //necessário para usar SceneManager, por exemplo
-using System;
 
 public class BunnyController : MonoBehaviour {
 
@@ -18,7 +17,7 @@ public class BunnyController : MonoBehaviour {
 	private float startTime;
     private int eggsCollected;
     private float scoreAux;
-	private int jumpsLeft = 2;
+	private int jumpsLeft = 0;
     private bool invincible = false;
 	public AudioSource jumpSfx;
 	public AudioSource deathSfx;
@@ -32,7 +31,6 @@ public class BunnyController : MonoBehaviour {
     private GameObject tempScoreText;
     private GameObject tempEasterEggsText;
     private GameObject bgm;
-    private GameObject bunny;
 
     // Use this for initialization
     void Start () {

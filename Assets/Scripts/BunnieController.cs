@@ -16,7 +16,7 @@ public class BunnieController : MonoBehaviour
     private string presentCounter;
     private float startTime;
     private int eggsCollected;
-    private int jumpsLeft = 2;
+    private int jumpsLeft = 0;
     public AudioSource jumpSfx;
     public AudioSource deathSfx;
     public AudioSource eeSfx;

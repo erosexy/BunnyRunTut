@@ -18,6 +18,7 @@ public class BackScreen : MonoBehaviour {
         bgMusic.GetComponent<AudioSource>().Stop();
         pauseBtn.SetActive(false);
         backBtn.SetActive(false);
+
         if (lifes1 == null && lifes2 == null && lifes3 == null)
         {
             Time.timeScale = 1.0f;
@@ -25,7 +26,7 @@ public class BackScreen : MonoBehaviour {
             {
                 pauseText.SetActive(false);
             }
-            pauseText.SetActive(false);
+            //pauseText.SetActive(false);
             SceneManager.LoadScene("Title");
         }
         else {
