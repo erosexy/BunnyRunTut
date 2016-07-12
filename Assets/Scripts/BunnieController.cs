@@ -22,9 +22,8 @@ public class BunnieController : MonoBehaviour
     public AudioSource eeSfx;
 
     //variáveis que contém objetos
-    private GameObject topScoreText;
-    private GameObject topEasterEggsText;
-    private GameObject bgm;
+    private GameObject topScoreText, topEasterEggsText, bgm;
+    public GameObject topScoreTxt, topEasterEggsTxt;
 
     // Use this for initialization
     void Start()
@@ -44,13 +43,9 @@ public class BunnieController : MonoBehaviour
             bgm.GetComponent<AudioSource>().Play();
             bgm.GetComponent<AudioSource>().volume = 0.5f;
         }
+        ShowScore();
 
-        //encontra os objetos
-        topEasterEggsText = GameObject.Find("lblEasterEggsTop");
-        topScoreText = GameObject.Find("lblScoreTop");
-
-        topEasterEggsText.GetComponent<Text>().text = GetEggsScore();
-        topScoreText.GetComponent<Text>().text = GetScore();
+        
     }
 
     // Update is called once per frame
@@ -213,5 +208,33 @@ public class BunnieController : MonoBehaviour
     string GetScore()
     {
         return PlayerPrefs.GetString("Score");
+    }
+    public void HideScore()
+    {
+        topEasterEggsText.GetComponent<Text>().text = "";
+        topScoreText.GetComponent<Text>().text = "";
+        topEasterEggsTxt.GetComponent<Text>().text = "";
+        topScoreTxt.GetComponent<Text>().text = "";
+    }
+
+    void ShowScore()
+    {
+        //encontra os objetos
+        topEasterEggsText = GameObject.Find("lblEasterEggsTop");
+        topScoreText = GameObject.Find("lblScoreTop");
+
+        topEasterEggsText.GetComponent<Text>().text = GetEggsScore();
+        topScoreText.GetComponent<Text>().text = GetScore();
+
+        if (topEasterEggsText.GetComponent<Text>().text == "")
+        {
+            topEasterEggsText.GetComponent<Text>().text = "0";
+        }
+        if (topScoreText.GetComponent<Text>().text == "")
+        {
+            topScoreText.GetComponent<Text>().text = "0.0";
+        }
+        topEasterEggsTxt.GetComponent<Text>().text = "Top Easter Eggs: ";
+        topScoreTxt.GetComponent<Text>().text = "Top Score: ";
     }
 }

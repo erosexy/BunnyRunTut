@@ -5,6 +5,7 @@ public class HelpWindow : MonoBehaviour
 {
     private Rect windowRect0 = new Rect((Screen.width - 1200)/2, (Screen.height - 390)/2, 1200, 390);
     private GameObject player;
+    string guiWindowText;
     //private Rect windowRect1 = new Rect(20, 100, 120, 50);
 
     /// <summary>
@@ -21,13 +22,15 @@ public class HelpWindow : MonoBehaviour
         {
             player = GameObject.Find("Bunnie");
             player.GetComponent("bunnieController");
+            guiWindowText = "Tap the screen to jump, tap again to do a second jump!\nAvoid the hazard and collect easter eggs by jumping!\nYou can try as many times as you wish!";
         }
         else
         {
+            guiWindowText = "Tap the screen to jump, tap again to do a second jump!\nAvoid the hazard and collect easter eggs by jumping!\nAfter lose a life, you will be invencible for 5 seconds!";
             player.GetComponent("bunnyController");
         }
         //player.SetActive(false);
-        windowRect0 = GUI.Window(0, windowRect0, DoMyWindow, "HELLO,  FRIENDS!"); 
+        windowRect0 = GUI.Window(0, windowRect0, DoMyWindow, "INSTRUCTIONS"); 
         //windowRect1 = GUI.Window(1, windowRect1, DoMyWindow, "My Window");
         //windowRect2 = GUI.Window(2, windowRect2, DoMyWindow, "UHUL");
     }
@@ -46,7 +49,7 @@ public class HelpWindow : MonoBehaviour
             var centeredStyle = GUI.skin.GetStyle("Label");
             centeredStyle.alignment = TextAnchor.UpperCenter; //defina estilos para poder personalizar as janelas
             centeredStyle.fontSize = 50;
-            GUI.Label(new Rect(10, 30, 1200, 280), "This game is super easy! Tap the screen to jump, tap again to do a second jump!\nAvoid the cactus and collect as many easter eggs as you can!\nCan you run for more than 100 meters?", centeredStyle);
+            GUI.Label(new Rect(10, 30, 1200, 280), guiWindowText, centeredStyle);
             stopTime();
         }
 

@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BackScreen : MonoBehaviour {
 
     private GameObject pauseBtn, bgMusic, backBtn, lifes1, lifes2, lifes3, pauseText, gameOverMusic;
+    public GameObject player;
 
-	public void Back()
+    public void Back()
     {
         pauseBtn = GameObject.Find("PauseBtn");
         bgMusic = GameObject.Find("BackgroundMusic");
@@ -15,6 +17,7 @@ public class BackScreen : MonoBehaviour {
         lifes2 = GameObject.Find("lifes2");
         lifes3 = GameObject.Find("lifes3");
         pauseText = GameObject.Find("pauseTxt");
+
         bgMusic.GetComponent<AudioSource>().Stop();
         pauseBtn.SetActive(false);
         backBtn.SetActive(false);
@@ -40,7 +43,7 @@ public class BackScreen : MonoBehaviour {
             lifes1.GetComponent<Renderer>().enabled = false;
             SceneManager.LoadScene("Title");
         }
-        
+        HideScore();
     }
 
     public void SoundTestBack()
@@ -48,5 +51,17 @@ public class BackScreen : MonoBehaviour {
         gameOverMusic = GameObject.Find("GameOverMusic");
         gameOverMusic.GetComponent<AudioSource>().Stop();
         SceneManager.LoadScene("Title");
+    }
+
+    void HideScore()
+    {
+        if(player.GetComponent<BunnyController>())
+        {
+            player.GetComponent<BunnyController>().HideScore();
+        }
+        else
+        {
+            player.GetComponent<BunnieController>().HideScore();
+        }
     }
 }

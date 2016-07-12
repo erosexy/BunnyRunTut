@@ -1421,6 +1421,8 @@ MonoBehaviour:
   jumpSfx: {fileID: 73862195}
   deathSfx: {fileID: 1477301548}
   eeSfx: {fileID: 1029234143}
+  topScoreTxt: {fileID: 901215816}
+  topEasterEggsTxt: {fileID: 1983377305}
 --- !u!1 &527840692
 GameObject:
   m_ObjectHideFlags: 0
@@ -3577,6 +3579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b581e1dba32814c8ae0625cf1dee09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 525321733}
 --- !u!1 &1783083685
 GameObject:
   m_ObjectHideFlags: 0

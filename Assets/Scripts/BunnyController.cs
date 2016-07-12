@@ -25,12 +25,9 @@ public class BunnyController : MonoBehaviour {
     //private bool destroy;
 
     //variáveis que contém objetos
-    private GameObject lifes3;
-    private GameObject lifes2;
-    private GameObject lifes1;
-    private GameObject tempScoreText;
-    private GameObject tempEasterEggsText;
-    private GameObject bgm;
+    private GameObject lifes3, lifes2, lifes1, tempScoreText, tempEasterEggsText, bgm;
+
+    public GameObject btnBack, btnPause, tempEasterEggsTxt, tempScoreTxt;    
 
     // Use this for initialization
     void Start () {
@@ -60,19 +57,19 @@ public class BunnyController : MonoBehaviour {
             lifes2.GetComponent<Renderer>().enabled = true;
             lifes3.GetComponent<Renderer>().enabled = true;
         }
-        tempEasterEggsText.GetComponent<Text>().text = "0";
-        tempScoreText.GetComponent<Text>().text = "0.0";
+        //tempEasterEggsText.GetComponent<Text>().text = "0";
+        //tempScoreText.GetComponent<Text>().text = "0.0";
 
-        //tempEasterEggsText.GetComponent<Text>().text = GetEggsScore();
-        //tempScoreText.GetComponent<Text>().text = GetScore();
-        if (tempEasterEggsText.GetComponent<Text>().text == "")
-        {
-            tempEasterEggsText.GetComponent<Text>().text = "0";
-        }
-        if(tempScoreText.GetComponent<Text>().text == "")
-        {
-            tempScoreText.GetComponent<Text>().text = "0.0";
-        }
+        //if (tempEasterEggsText.GetComponent<Text>().text == "")
+        //{
+        //    tempEasterEggsText.GetComponent<Text>().text = "0";
+        //}
+        //if(tempScoreText.GetComponent<Text>().text == "")
+        //{
+        //    tempScoreText.GetComponent<Text>().text = "0.0";
+        //}
+
+        ShowScore();
         bubble.GetComponent<Renderer>().enabled = false;
     }
 	
@@ -197,6 +194,9 @@ public class BunnyController : MonoBehaviour {
                 myCollider.enabled = false;
                 bgm.GetComponent<AudioSource>().Stop();
 
+                btnBack.SetActive(false);
+                btnPause.SetActive(false);
+
                 StartCoroutine("GameOver");
                 //SceneManager.LoadScene("GameOver");
             }
@@ -280,6 +280,7 @@ public class BunnyController : MonoBehaviour {
         yield return new WaitForSeconds(1.8f);
 
         //Application.LoadLevel("Title");
+        HideScore();
         SceneManager.LoadScene("GameOver");
     }
 
@@ -317,6 +318,39 @@ public class BunnyController : MonoBehaviour {
     string GetScore()
     {
         return PlayerPrefs.GetString("Life Mode - Score");
+    }
+
+    public void HideScore()
+    {
+        //tempEasterEggsText.SetActive(false);
+        //tempScoreText.SetActive(false);
+        //tempEasterEggsTxt.SetActive(false);
+        //tempScoreTxt.SetActive(false);
+        tempEasterEggsText.GetComponent<Text>().text = "";
+        tempScoreText.GetComponent<Text>().text = "";
+        tempEasterEggsTxt.GetComponent<Text>().text = "";
+        tempScoreTxt.GetComponent<Text>().text = "";
+    }
+
+    void ShowScore()
+    {
+        tempEasterEggsTxt = GameObject.Find("txtEasterEggsTemp");
+        tempScoreTxt = GameObject.Find("txtScoreTemp");
+        tempScoreText = GameObject.Find("lblScoreTemp");
+        tempEasterEggsText = GameObject.Find("lblEasterEggsTemp");
+        tempEasterEggsText.GetComponent<Text>().text = GetEggsScore();
+        tempScoreText.GetComponent<Text>().text = GetScore();
+
+        if (tempEasterEggsText.GetComponent<Text>().text == "")
+        {
+            tempEasterEggsText.GetComponent<Text>().text = "0";
+        }
+        if (tempScoreText.GetComponent<Text>().text == "")
+        {
+            tempScoreText.GetComponent<Text>().text = "0.0";
+        }
+        tempEasterEggsTxt.GetComponent<Text>().text = "Eggs Collected(lifes mode): ";
+        tempScoreTxt.GetComponent<Text>().text = "Score(lifes mode): ";
     }
 
 }

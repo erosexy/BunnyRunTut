@@ -1050,6 +1050,10 @@ MonoBehaviour:
   jumpSfx: {fileID: 73862195}
   deathSfx: {fileID: 1477301548}
   eeSfx: {fileID: 1029234143}
+  btnBack: {fileID: 832020855}
+  btnPause: {fileID: 252171738}
+  tempEasterEggsTxt: {fileID: 821799836}
+  tempScoreTxt: {fileID: 1258755799}
 --- !u!95 &525321739
 Animator:
   serializedVersion: 3
@@ -3343,6 +3347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b581e1dba32814c8ae0625cf1dee09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 525321733}
 --- !u!1 &1565423892 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 107972, guid: 2a97d8369d2d566408415a5603191da6, type: 2}
