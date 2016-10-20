@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PauseGame : MonoBehaviour {
 
-    private GameObject pauseText, player;
+    private GameObject pauseText, player, backButton;
 
     bool isPaused = false;
 
@@ -12,6 +12,9 @@ public class PauseGame : MonoBehaviour {
         pauseText = GameObject.Find("pauseTxt");
         pauseText.SetActive(false);
         player = GameObject.Find("Bunny");
+        backButton = GameObject.Find("BackBtn");
+        if (backButton != null)
+            backButton.SetActive(false);
         if(player == null)
         {
             player = GameObject.Find("Bunnie");
@@ -54,6 +57,7 @@ public class PauseGame : MonoBehaviour {
     {
         Time.timeScale = 0.0f;
         print("Game paused");
+        backButton.SetActive(true);
         isPaused = true;
     }
 
@@ -61,6 +65,7 @@ public class PauseGame : MonoBehaviour {
     {
         Time.timeScale = 1.0f;
         print("Game unpaused");
+        backButton.SetActive(false);
         isPaused = false;
     }
 }

@@ -22,12 +22,13 @@ public class BunnyController : MonoBehaviour {
 	public AudioSource jumpSfx;
 	public AudioSource deathSfx;
 	public AudioSource eeSfx;
+    private string topEggsCounter, presentEggsCounter, topScoreCounter, presentScoreCounter;
     //private bool destroy;
 
     //variáveis que contém objetos
     private GameObject lifes3, lifes2, lifes1, tempScoreText, tempEasterEggsText, bgm;
 
-    public GameObject btnBack, btnPause, tempEasterEggsTxt, tempScoreTxt;    
+    public GameObject btnBack, btnPause, tempEasterEggsTxt, tempScoreTxt, EasterEggsTxt, ScoreTxt;    
 
     // Use this for initialization
     void Start () {
@@ -47,6 +48,8 @@ public class BunnyController : MonoBehaviour {
         }
         tempScoreText = GameObject.Find("lblScoreTemp");
         tempEasterEggsText = GameObject.Find("lblEasterEggsTemp");
+        EasterEggsTxt = GameObject.Find("lblEggs");
+        ScoreTxt = GameObject.Find("lblScore");
         //encontra os objetos
         lifes3 = GameObject.Find("lifes3");
         lifes2 = GameObject.Find("lifes2");
@@ -222,23 +225,27 @@ public class BunnyController : MonoBehaviour {
 
     private void ScoreTempCalculation()
     {
+        topEggsCounter = tempEasterEggsText.GetComponent<Text>().text;
+        presentEggsCounter = EasterEggsTxt.GetComponent<Text>().text;
         if (eggsCollected > 0)
         {
             if (tempEasterEggsText.GetComponent<Text>().text == "0")
             {
                 tempEasterEggsText.GetComponent<Text>().text = eggsCollected.ToString();
             }
-            else
+            else if (int.Parse(topEggsCounter) < int.Parse(presentEggsCounter))
             {
                 aux = tempEasterEggsText.GetComponent<Text>().text;
                 eggsCollected = int.Parse(aux);
-                aux = eggsText.text;
-                eggsCollected += int.Parse(aux);
+                //aux = eggsText.text;
+                //eggsCollected += int.Parse(aux);
                 tempEasterEggsText.GetComponent<Text>().text = eggsCollected.ToString();
             }
             SaveEggsScore(tempEasterEggsText.GetComponent<Text>().text);
         }
 
+        topScoreCounter = tempScoreText.GetComponent<Text>().text;
+        presentScoreCounter = ScoreTxt.GetComponent<Text>().text;
 
         if (float.Parse(scoreText.text.ToString()) > 0.0)
         {
@@ -246,12 +253,12 @@ public class BunnyController : MonoBehaviour {
             {
                 tempScoreText.GetComponent<Text>().text = scoreText.text.ToString();
             }
-            else
+            else if(double.Parse(topScoreCounter) < double.Parse(presentScoreCounter))
             {
                 aux = tempScoreText.GetComponent<Text>().text.ToString();
                 scoreAux = float.Parse(aux); 
-                aux = scoreText.text.ToString();
-                scoreAux += float.Parse(aux);
+                //aux = scoreText.text.ToString();
+                //scoreAux += float.Parse(aux);
                 tempScoreText.GetComponent<Text>().text = scoreAux.ToString();
             }
             SaveScore(tempScoreText.GetComponent<Text>().text);
