@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class BunnieController : MonoBehaviour
+public class BunnieNatalController : MonoBehaviour
 {
     private Rigidbody2D myRigidBody;
     private Animator myAnim;
@@ -11,19 +11,19 @@ public class BunnieController : MonoBehaviour
     private float BunnieHurtTime = -1;
     private Collider2D myCollider;
     public Text scoreText;
-    public Text eggsText;
+    public Text presentsText;
     private string topCounter;
     private string presentCounter;
     private float startTime;
-    private int eggsCollected;
+    private int presentsCollected;
     private int jumpsLeft = 0;
     public AudioSource jumpSfx;
     public AudioSource deathSfx;
     public AudioSource eeSfx;
 
     //variáveis que contém objetos
-    private GameObject topScoreText, topEasterEggsText, bgm;
-    public GameObject topScoreTxt, topEasterEggsTxt, btnBack, btnPause;
+    private GameObject topScoreText, topPresentsText, bgm;
+    public GameObject topScoreTxt, topPresentsTxt, btnBack, btnPause;
 
     // Use this for initialization
     void Start()
@@ -56,11 +56,11 @@ public class BunnieController : MonoBehaviour
             btnBack.SetActive(false);
             btnPause.SetActive(false);
             HideScore();
+
         }
 
         if (BunnieHurtTime == -1)
         {
-
             //se a tecla "espaço" for pressionada, o sprite pula
             if (Input.GetButtonUp("Jump") && jumpsLeft > 0 || Input.GetMouseButtonDown(0) && jumpsLeft > 0)
             {
@@ -105,13 +105,13 @@ public class BunnieController : MonoBehaviour
 
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            GameObject.Find("Bunnie").transform.position = new Vector2(-3, transform.position.y);
+            GameObject.Find("BunnieNatal").transform.position = new Vector2(-3, transform.position.y);
             foreach (PrefabSpawner spawner in FindObjectsOfType<PrefabSpawner>())
             {
                 spawner.enabled = false;
             }
 
-            foreach (EggPrefabSpawner spawner in FindObjectsOfType<EggPrefabSpawner>())
+            foreach (PresentPrefabSpawner spawner in FindObjectsOfType<PresentPrefabSpawner>())
             {
                 spawner.enabled = false;
             }
@@ -124,7 +124,7 @@ public class BunnieController : MonoBehaviour
             ScoreCalculation();
             deathSfx.Play();
             BunnieHurtTime = Time.time;
-            myAnim.SetBool("bunnieHurt", true);
+            myAnim.SetBool("bunnieNatalHurt", true);
             myRigidBody.velocity = Vector2.zero;
             myRigidBody.AddForce(transform.up * BunnieJumpForce);
             myCollider.enabled = false;
@@ -132,11 +132,11 @@ public class BunnieController : MonoBehaviour
         
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Itens"))
         {
-            GameObject.Find("Bunnie").transform.position = new Vector2(-3, transform.position.y);
+            GameObject.Find("BunnieNatal").transform.position = new Vector2(-3, transform.position.y);
             Destroy(collision.gameObject);
             eeSfx.Play();
-            eggsCollected++;
-            eggsText.text = eggsCollected.ToString();
+            presentsCollected++;
+            presentsText.text = presentsCollected.ToString();
             //scoreText.text += (scoreText + 100).ToString("0.0");
         }
     }
@@ -150,30 +150,22 @@ public class BunnieController : MonoBehaviour
         }
     }
 
-    IEnumerator GameOver()
-    {
-        yield return new WaitForSeconds(1.8f);
-
-        //Application.LoadLevel("Title");
-        SceneManager.LoadScene("GameOver");
-    }
-
     void ScoreCalculation()
     {
-        topCounter = topEasterEggsText.GetComponent<Text>().text;
-        presentCounter = eggsText.text;
+        topCounter = topPresentsText.GetComponent<Text>().text;
+        presentCounter = presentsText.text;
 
-        if (topEasterEggsText.GetComponent<Text>().text == "")
+        if (topPresentsText.GetComponent<Text>().text == "")
         {
-            topEasterEggsText.GetComponent<Text>().text = eggsCollected.ToString();
+            topPresentsText.GetComponent<Text>().text = presentsCollected.ToString();
         }
         else if (int.Parse(topCounter) < int.Parse(presentCounter))
         {
             topCounter = presentCounter;
-            topEasterEggsText.GetComponent<Text>().text = topCounter.ToString();
+            topPresentsText.GetComponent<Text>().text = topCounter.ToString();
         }
 
-        SaveEggsScore(topEasterEggsText.GetComponent<Text>().text);
+        SavePresentsScore(topPresentsText.GetComponent<Text>().text);
 
         topCounter = topScoreText.GetComponent<Text>().text;
         presentCounter = scoreText.text;
@@ -191,19 +183,19 @@ public class BunnieController : MonoBehaviour
         SaveScore(topScoreText.GetComponent<Text>().text);
     }
 
-    void SaveEggsScore(string eggsScore)
+    void SavePresentsScore(string eggsScore)
     {
-        PlayerPrefs.SetString("Eggs Score", topEasterEggsText.GetComponent<Text>().text);
+        PlayerPrefs.SetString("Presents Score", topPresentsText.GetComponent<Text>().text);
     }
 
-    string GetEggsScore()
+    string GetPresentsScore()
     {
-        return PlayerPrefs.GetString("Eggs Score");
+        return PlayerPrefs.GetString("Presents Score");
     }
 
     void SaveScore(string Score)
     {
-        PlayerPrefs.SetString("Score", topEasterEggsText.GetComponent<Text>().text);
+        PlayerPrefs.SetString("Score", topScoreText.GetComponent<Text>().text);
     }
 
     string GetScore()
@@ -212,30 +204,30 @@ public class BunnieController : MonoBehaviour
     }
     public void HideScore()
     {
-        topEasterEggsText.GetComponent<Text>().text = "";
+        topPresentsText.GetComponent<Text>().text = "";
         topScoreText.GetComponent<Text>().text = "";
-        topEasterEggsTxt.GetComponent<Text>().text = "";
+        topPresentsTxt.GetComponent<Text>().text = "";
         topScoreTxt.GetComponent<Text>().text = "";
     }
 
     void ShowScore()
     {
         //encontra os objetos
-        topEasterEggsText = GameObject.Find("lblEasterEggsTop");
+        topPresentsText = GameObject.Find("lblPresentsTop");
         topScoreText = GameObject.Find("lblScoreTop");
 
-        topEasterEggsText.GetComponent<Text>().text = GetEggsScore();
+        topPresentsText.GetComponent<Text>().text = GetPresentsScore();
         topScoreText.GetComponent<Text>().text = GetScore();
 
-        if (topEasterEggsText.GetComponent<Text>().text == "")
+        if (topPresentsText.GetComponent<Text>().text == "")
         {
-            topEasterEggsText.GetComponent<Text>().text = "0";
+            topPresentsText.GetComponent<Text>().text = "0";
         }
         if (topScoreText.GetComponent<Text>().text == "")
         {
             topScoreText.GetComponent<Text>().text = "0.0";
         }
-        topEasterEggsTxt.GetComponent<Text>().text = "Top Easter Eggs: ";
+        topPresentsTxt.GetComponent<Text>().text = "Top Presents: ";
         topScoreTxt.GetComponent<Text>().text = "Top Score: ";
     }
 }

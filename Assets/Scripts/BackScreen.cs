@@ -21,7 +21,7 @@ public class BackScreen : MonoBehaviour {
         bgMusic.GetComponent<AudioSource>().Stop();
         pauseBtn.SetActive(false);
         backBtn.SetActive(false);
-
+        HideScore();
         if (lifes1 == null && lifes2 == null && lifes3 == null)
         {
             Time.timeScale = 1.0f;
@@ -43,7 +43,7 @@ public class BackScreen : MonoBehaviour {
             lifes1.GetComponent<Renderer>().enabled = false;
             SceneManager.LoadScene("Title");
         }
-        HideScore();
+        
     }
 
     public void SoundTestBack()
@@ -58,6 +58,14 @@ public class BackScreen : MonoBehaviour {
         if(player.GetComponent<BunnyController>())
         {
             player.GetComponent<BunnyController>().HideScore();
+        }
+        else if (player.GetComponent<BunnyNatalController>())
+        {
+            player.GetComponent<BunnyNatalController>().HideScore();
+        }
+        else if (player.GetComponent<BunnieNatalController>())
+        {
+            player.GetComponent<BunnieNatalController>().HideScore();
         }
         else
         {

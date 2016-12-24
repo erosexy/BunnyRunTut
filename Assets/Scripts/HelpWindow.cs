@@ -20,9 +20,22 @@ public class HelpWindow : MonoBehaviour
         player = GameObject.Find("Bunny");
         if (player == null)
         {
-            player = GameObject.Find("Bunnie");
-            player.GetComponent("bunnieController");
-            guiWindowText = "Tap the screen to jump, tap again to do a second jump!\nAvoid the hazard and collect easter eggs by jumping!\nYou can try as many times as you wish!";
+            player = GameObject.Find("BunnyNatal");
+            if(player == null)
+            {
+                player = GameObject.Find("Bunnie");
+                if(player == null)
+                {
+                    player = GameObject.Find("BunnieNatal");
+                }
+                player.GetComponent("bunnieController");
+                guiWindowText = "Tap the screen to jump, tap again to do a second jump!\nAvoid the hazard and collect easter eggs by jumping!\nYou can try as many times as you wish!";
+            }
+            else
+            {
+                guiWindowText = "Tap the screen to jump, tap again to do a second jump!\nAvoid the hazard and collect easter eggs by jumping!\nAfter lose a life, you will be invencible for 5 seconds!";
+                player.GetComponent("bunnyController");
+            }
         }
         else
         {

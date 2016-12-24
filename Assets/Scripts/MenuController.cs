@@ -72,10 +72,24 @@ public class MenuController : MonoBehaviour {
         //Application.LoadLevel("GameBunny");
     }
 
+    public void StartGameAsBunnyNatal()
+    {
+        titleMusic.Stop();
+        SceneManager.LoadScene("GameNatalBunny");
+        //Application.LoadLevel("GameBunny");
+    }
+
     public void StartGameAsBunnie()
     {
         titleMusic.Stop();
         SceneManager.LoadScene("GameBunnie");
+        //Application.LoadLevel("GameBunnie");
+    }
+
+    public void StartGameAsBunnieNatal()
+    {
+        titleMusic.Stop();
+        SceneManager.LoadScene("GameNatalBunnie");
         //Application.LoadLevel("GameBunnie");
     }
 }
