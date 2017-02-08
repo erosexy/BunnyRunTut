@@ -356,7 +356,7 @@ public class BunnyController : MonoBehaviour {
         {
             tempScoreText.GetComponent<Text>().text = "0.0";
         }
-        tempEasterEggsTxt.GetComponent<Text>().text = "Eggs Collected(lifes mode): ";
+        tempEasterEggsTxt.GetComponent<Text>().text = "Easter Eggs Collected(lifes mode): ";
         tempScoreTxt.GetComponent<Text>().text = "Score(lifes mode): ";
     }
 

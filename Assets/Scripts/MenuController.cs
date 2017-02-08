@@ -92,4 +92,18 @@ public class MenuController : MonoBehaviour {
         SceneManager.LoadScene("GameNatalBunnie");
         //Application.LoadLevel("GameBunnie");
     }
+
+    public void LoadTitleScreen()
+    {
+        titleMusic.Stop();
+        SceneManager.LoadScene("Title");
+        //Application.LoadLevel("GameBunnie");
+    }
+
+    public void LoadTitleNatalScreen()
+    {
+        titleMusic.Stop();
+        SceneManager.LoadScene("TitleNatal");
+        //Application.LoadLevel("GameBunnie");
+    }
 }

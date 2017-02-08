@@ -79,7 +79,7 @@ public class BunnyNatalController : MonoBehaviour {
             HideScore();
             btnBack.SetActive(false);
             btnPause.SetActive(false);
-            SceneManager.LoadScene("Title");
+            SceneManager.LoadScene("TitleNatal");
 
             //Application.LoadLevel("Title"); não recomendado para Unity 5.x em diante
         }
@@ -311,12 +311,12 @@ public class BunnyNatalController : MonoBehaviour {
 
     void SaveScore(string Score)
     {
-        PlayerPrefs.SetString("Life Mode - Score", tempScoreText.GetComponent<Text>().text);
+        PlayerPrefs.SetString("Life Mode - Christmas Score", tempScoreText.GetComponent<Text>().text);
     }
 
     string GetScore()
     {
-        return PlayerPrefs.GetString("Life Mode - Score");
+        return PlayerPrefs.GetString("Life Mode - Christmas Score");
     }
 
     public void HideScore()

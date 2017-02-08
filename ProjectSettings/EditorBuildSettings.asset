@@ -8,6 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Title.unity
   - enabled: 1
+    path: Assets/Scenes/TitleNatal.unity
+  - enabled: 1
     path: Assets/Scenes/SoundTest.unity
   - enabled: 0
     path: Assets/GameBunny.unity
@@ -17,3 +19,7 @@ EditorBuildSettings:
     path: Assets/Scenes/GameOver.unity
   - enabled: 1
     path: Assets/Scenes/GameBunny.unity
+  - enabled: 1
+    path: Assets/Scenes/GameNatalBunnie.unity
+  - enabled: 1
+    path: Assets/Scenes/GameNatalBunny.unity

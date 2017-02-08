@@ -52,7 +52,7 @@ public class BunnieNatalController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             bgm.GetComponent<AudioSource>().Stop();
-            SceneManager.LoadScene("Title");
+            SceneManager.LoadScene("TitleNatal");
             btnBack.SetActive(false);
             btnPause.SetActive(false);
             HideScore();
@@ -195,12 +195,12 @@ public class BunnieNatalController : MonoBehaviour
 
     void SaveScore(string Score)
     {
-        PlayerPrefs.SetString("Score", topScoreText.GetComponent<Text>().text);
+        PlayerPrefs.SetString("Christmas Score", topScoreText.GetComponent<Text>().text);
     }
 
     string GetScore()
     {
-        return PlayerPrefs.GetString("Score");
+        return PlayerPrefs.GetString("Christmas Score");
     }
     public void HideScore()
     {
